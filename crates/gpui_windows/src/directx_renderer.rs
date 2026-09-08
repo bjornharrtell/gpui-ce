@@ -2401,6 +2401,7 @@ pub(crate) mod shader_resources {
     }
 
     impl ShaderModule {
+        #[cfg(test)]
         const ALL: [Self; 13] = [
             Self::Quad,
             Self::Shadow,
