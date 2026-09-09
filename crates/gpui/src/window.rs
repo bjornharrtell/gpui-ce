@@ -4796,6 +4796,7 @@ impl Window {
             order: 0,
             bounds,
             content_mask,
+            opacity: self.element_opacity(),
             source: source.into(),
         });
     }
@@ -6414,6 +6415,18 @@ impl Window {
     #[cfg(any(target_os = "linux", target_os = "freebsd", target_os = "windows"))]
     pub fn gpu_context(&self) -> Option<Box<dyn std::any::Any>> {
         self.platform_window.gpu_context()
+    }
+
+    /// Returns backend-specific typed GPU context information for custom
+    /// controls. Use the rendering backend's context type to downcast the
+    /// returned value.
+    #[cfg(any(
+        target_os = "linux",
+        target_os = "freebsd",
+        all(target_os = "windows", feature = "wgpu-surfaces")
+    ))]
+    pub fn gpu_context_info(&self) -> Option<Box<dyn std::any::Any>> {
+        self.platform_window.gpu_context_info()
     }
 
     /// Whether the GPU device backing this window has been lost (recovery

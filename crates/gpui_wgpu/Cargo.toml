@@ -74,7 +74,10 @@ web-sys = { version = "0.3", features = ["HtmlCanvasElement"] }
 js-sys.workspace = true
 
 [dev-dependencies]
+bytemuck = { version = "1", features = ["derive"] }
 criterion.workspace = true
+env_logger.workspace = true
+gpui_platform = { workspace = true, features = ["font-kit", "wayland", "x11"] }
 naga = { version = "29.0.4", features = ["wgsl-in"] }
 
 [[bench]]

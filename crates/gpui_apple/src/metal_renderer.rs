@@ -1765,6 +1765,7 @@ impl MetalRenderer {
                 bounds: surface.bounds.into(),
                 content_mask: surface.content_mask.bounds.into(),
                 color_format: SurfaceColorFormat::Yuv,
+                opacity: surface.opacity,
                 padding0: 0,
                 padding1: 0,
                 padding2: 0,
