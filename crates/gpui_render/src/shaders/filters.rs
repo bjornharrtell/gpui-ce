@@ -13,6 +13,7 @@ pub mod surface {
         pub padding0: u32,
         pub padding1: u32,
         pub padding2: u32,
+        pub padding3: u32,
     }
     uniform!(group(1), binding(0), SURFACE_LOCALS: SurfaceUniforms);
     texture!(group(1), binding(1), SURFACE_TEXTURE: Texture2D<f32>);
