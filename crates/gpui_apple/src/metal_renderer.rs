@@ -1770,6 +1770,8 @@ impl MetalRenderer {
                 padding1: 0,
                 padding2: 0,
                 padding3: 0,
+                padding4: 0,
+                padding5: 0,
             };
             command_encoder.set_vertex_bytes(
                 DATA_SLOT,
