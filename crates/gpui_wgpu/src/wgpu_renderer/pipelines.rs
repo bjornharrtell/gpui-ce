@@ -504,8 +504,9 @@ fn generated_bind_group_layout(
                 GeneratedBindingKind::RangeUniform => wgpu::BindingType::Buffer {
                     ty: wgpu::BufferBindingType::Uniform,
                     has_dynamic_offset: true,
-                    // The generated `vec2<u32> DATA_RANGE` batch base.
-                    min_binding_size: NonZeroU64::new(8),
+                    // The generated `DATA_RANGE` batch base, padded to satisfy
+                    // browser/WebGL downlevel uniform-binding alignment.
+                    min_binding_size: NonZeroU64::new(16),
                 },
             },
             count: None,
