@@ -1,5 +1,6 @@
 use gpui::PaintSurface;
 #[cfg(any(
+    target_family = "wasm",
     target_os = "macos",
     target_os = "linux",
     target_os = "freebsd",
@@ -14,8 +15,8 @@ use super::{WgpuRenderer, frame};
 #[cfg(target_os = "macos")]
 #[path = "surfaces/macos.rs"]
 mod platform;
-#[cfg(any(target_os = "linux", target_os = "freebsd"))]
-#[path = "surfaces/linux.rs"]
+#[cfg(any(target_family = "wasm", target_os = "linux", target_os = "freebsd"))]
+#[path = "surfaces/texture.rs"]
 mod platform;
 #[cfg(all(target_os = "windows", feature = "wgpu-surfaces"))]
 #[path = "surfaces/windows.rs"]
@@ -24,6 +25,7 @@ mod platform;
     target_os = "macos",
     target_os = "linux",
     target_os = "freebsd",
+    target_family = "wasm",
     all(target_os = "windows", feature = "wgpu-surfaces")
 )))]
 #[path = "surfaces/unsupported.rs"]
@@ -32,6 +34,7 @@ mod platform;
 pub(super) use platform::SurfaceCache;
 
 #[cfg(any(
+    target_family = "wasm",
     target_os = "macos",
     target_os = "linux",
     target_os = "freebsd",
@@ -45,6 +48,7 @@ struct SurfaceBinding {
 }
 
 #[cfg(any(
+    target_family = "wasm",
     target_os = "macos",
     target_os = "linux",
     target_os = "freebsd",
@@ -80,6 +84,7 @@ impl WgpuRenderer {
     }
 
     #[cfg(any(
+        target_family = "wasm",
         target_os = "macos",
         target_os = "linux",
         target_os = "freebsd",
@@ -105,6 +110,7 @@ impl WgpuRenderer {
     }
 
     #[cfg(any(
+        target_family = "wasm",
         target_os = "macos",
         target_os = "linux",
         target_os = "freebsd",

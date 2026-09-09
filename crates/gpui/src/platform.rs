@@ -998,6 +998,7 @@ pub trait PlatformWindow: HasWindowHandle + HasDisplayHandle {
     /// controls. The value is intentionally type-erased in this crate so the
     /// core UI crate does not depend on a rendering backend.
     #[cfg(any(
+        target_family = "wasm",
         target_os = "linux",
         target_os = "freebsd",
         all(target_os = "windows", feature = "wgpu-surfaces")
