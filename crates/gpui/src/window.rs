@@ -6421,6 +6421,7 @@ impl Window {
     /// controls. Use the rendering backend's context type to downcast the
     /// returned value.
     #[cfg(any(
+        target_family = "wasm",
         target_os = "linux",
         target_os = "freebsd",
         all(target_os = "windows", feature = "wgpu-surfaces")

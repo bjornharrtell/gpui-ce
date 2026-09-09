@@ -59,6 +59,7 @@ pub(super) struct WgpuPipelines {
     pub(super) polychrome_sprites: WgpuRenderPipeline,
     #[cfg_attr(
         not(any(
+            target_family = "wasm",
             target_os = "macos",
             target_os = "linux",
             target_os = "freebsd",
@@ -255,6 +256,7 @@ impl WgpuBindGroupLayouts {
     }
 
     #[cfg(any(
+        target_family = "wasm",
         target_os = "macos",
         target_os = "linux",
         target_os = "freebsd",
@@ -733,6 +735,7 @@ mod tests {
             &sampler,
         );
         #[cfg(any(
+            target_family = "wasm",
             target_os = "macos",
             target_os = "linux",
             target_os = "freebsd",

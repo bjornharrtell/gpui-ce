@@ -16,13 +16,20 @@ pub enum SurfaceSource {
     Surface(CVPixelBuffer),
     /// A GPU texture handle (type-erased to avoid depending on wgpu)
     #[cfg(any(
+        target_family = "wasm",
         target_os = "linux",
         target_os = "freebsd",
         all(target_os = "windows", feature = "wgpu-surfaces")
     ))]
     Texture {
         /// The GPU texture, type-erased (expected to be `Arc<wgpu::Texture>`)
+        #[cfg(not(target_family = "wasm"))]
         texture: std::sync::Arc<dyn std::any::Any + Send + Sync>,
+        /// The GPU texture, type-erased (expected to be `Arc<wgpu::Texture>`).
+        ///
+        /// WGPU handles are intentionally thread-local in browser builds.
+        #[cfg(target_family = "wasm")]
+        texture: std::sync::Arc<dyn std::any::Any>,
         /// Dimensions of the texture in device pixels
         size: Size<DevicePixels>,
     },
@@ -40,6 +47,7 @@ impl std::fmt::Debug for SurfaceSource {
             #[cfg(target_os = "macos")]
             SurfaceSource::Surface(ref buf) => _f.debug_tuple("Surface").field(buf).finish(),
             #[cfg(any(
+                target_family = "wasm",
                 target_os = "linux",
                 target_os = "freebsd",
                 all(target_os = "windows", feature = "wgpu-surfaces")
@@ -63,6 +71,7 @@ impl SurfaceSource {
                 crate::size(buffer.get_width().into(), buffer.get_height().into())
             }
             #[cfg(any(
+                target_family = "wasm",
                 target_os = "linux",
                 target_os = "freebsd",
                 all(target_os = "windows", feature = "wgpu-surfaces")

@@ -39,7 +39,7 @@ pub(super) fn draw_surfaces(
     let mut textures = smallvec::SmallVec::<[(&PaintSurface, &wgpu::Texture); 4]>::new();
     for surface in surfaces {
         let gpui::SurfaceSource::Texture { texture, .. } = &surface.source else {
-            log::error!("surface source cannot be imported by the Linux renderer");
+            log::error!("surface source cannot be imported by the WGPU texture renderer");
             return Err(frame::DrawError::ExternalSurface);
         };
         let Some(texture) = texture.downcast_ref::<wgpu::Texture>() else {
