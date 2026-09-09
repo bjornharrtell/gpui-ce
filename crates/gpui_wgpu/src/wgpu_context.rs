@@ -336,10 +336,9 @@ impl WgpuContextHandle {
 
     /// Returns the typed wgpu context associated with a GPUI window.
     #[cfg(any(
-        target_family = "wasm",
         target_os = "linux",
         target_os = "freebsd",
-        all(target_os = "windows", feature = "wgpu-surfaces")
+        all(target_family = "wasm", feature = "custom-gpu")
     ))]
     pub fn from_window(window: &gpui::Window) -> Option<Self> {
         window
@@ -400,10 +399,9 @@ impl WgpuRenderTarget {
 
     /// Creates a GPUI element that composites this target at its layout bounds.
     #[cfg(any(
-        target_family = "wasm",
         target_os = "linux",
         target_os = "freebsd",
-        all(target_os = "windows", feature = "wgpu-surfaces")
+        all(target_family = "wasm", feature = "custom-gpu")
     ))]
     pub fn surface(&self) -> gpui::Surface {
         gpui::surface(gpui::SurfaceSource::Texture {
