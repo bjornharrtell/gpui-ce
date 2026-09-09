@@ -1031,6 +1031,7 @@ pub struct PaintSurface {
     pub order: DrawOrder,
     pub bounds: Bounds<ScaledPixels>,
     pub content_mask: ContentMask<ScaledPixels>,
+    pub opacity: f32,
     pub source: crate::SurfaceSource,
 }
 

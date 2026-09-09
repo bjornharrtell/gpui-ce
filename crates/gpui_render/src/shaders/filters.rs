@@ -9,6 +9,7 @@ pub mod surface {
         pub bounds: Bounds,
         pub content_mask: Bounds,
         pub color_format: SurfaceColorFormat,
+        pub opacity: f32,
         pub padding0: u32,
         pub padding1: u32,
         pub padding2: u32,
@@ -66,14 +67,14 @@ pub mod surface {
             return transparent();
         }
         if get!(SURFACE_LOCALS).color_format == SurfaceColorFormat::Yuv {
-            return sample_yuv_surface(input.texture_position);
+            return sample_yuv_surface(input.texture_position) * get!(SURFACE_LOCALS).opacity;
         }
         texture_sample_level(
             SURFACE_TEXTURE,
             SURFACE_SAMPLER,
             input.texture_position,
             0.0,
-        )
+        ) * get!(SURFACE_LOCALS).opacity
     }
 }
 

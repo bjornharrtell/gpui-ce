@@ -1195,6 +1195,7 @@ impl DirectXRenderer {
                 bounds: surface.bounds.into(),
                 content_mask: surface.content_mask.bounds.into(),
                 color_format: SurfaceColorFormat::Rgba,
+                opacity: surface.opacity,
                 padding0: 0,
                 padding1: 0,
                 padding2: 0,
