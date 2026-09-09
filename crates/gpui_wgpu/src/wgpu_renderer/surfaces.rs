@@ -133,6 +133,8 @@ impl WgpuRenderer {
             padding1: 0,
             padding2: 0,
             padding3: 0,
+            padding4: 0,
+            padding5: 0,
         };
         let resources = self.resources();
         let uniform_offset = resources.surface_uniforms.write(&uniforms);

@@ -204,7 +204,9 @@ pub const RENDER_BUFFER_LAYOUTS: &[gpui::SceneBufferLayout] = &[
         padding0,
         padding1,
         padding2,
-        padding3
+        padding3,
+        padding4,
+        padding5
     ),
     render_layout!(
         super::blur::BlurUniforms,

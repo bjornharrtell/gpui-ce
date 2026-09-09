@@ -1200,6 +1200,8 @@ impl DirectXRenderer {
                 padding1: 0,
                 padding2: 0,
                 padding3: 0,
+                padding4: 0,
+                padding5: 0,
             };
             update_buffer(ctx, &self.pipelines.surfaces.params_buffer, &[uniforms])?;
 
