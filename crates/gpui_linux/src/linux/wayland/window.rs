@@ -1626,17 +1626,26 @@ impl WaylandWindowStatePtr {
             .iter()
             .copied()
             .filter_map(|size| {
-                let mem = memfd::MemfdOptions::new()
-                    .allow_sealing(true)
-                    .create(format!("icon-{size}x{size}"))
-                    .ok()?;
-
                 let buffer_len = size * size * mem::size_of::<Rgba<u8>>() as i32;
-                mem.as_file()
-                    .set_len(u64::try_from(buffer_len).ok()?)
-                    .ok()?;
-
-                let mut fd = FileDescriptor::new(mem);
+                let mut fd = {
+                    #[cfg(target_os = "linux")]
+                    {
+                        let mem = memfd::MemfdOptions::new()
+                            .allow_sealing(true)
+                            .create(format!("icon-{size}x{size}"))
+                            .ok()?;
+                        mem.as_file()
+                            .set_len(u64::try_from(buffer_len).ok()?)
+                            .ok()?;
+                        FileDescriptor::new(mem)
+                    }
+                    #[cfg(not(target_os = "linux"))]
+                    {
+                        let file = tempfile::tempfile().ok()?;
+                        file.set_len(u64::try_from(buffer_len).ok()?).ok()?;
+                        FileDescriptor::new(file)
+                    }
+                };
 
                 let pool =
                     state
